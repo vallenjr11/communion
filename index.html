@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="communion landing page" />
+    <meta name="author" content="v" />
+    <title>COMMUNION</title>
+    <style>
+        body {
+            background-color: #090708;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 350px;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+            border-radius: 10px; /* Rounded corners */
+            overflow: hidden; /* Clip the rounded corners on child elements */
+        }
+
+        input[type="tel"] {
+            width: 280px;
+            padding: 10px;
+            color: #e2ded5;
+            background-color: #090708;
+            border: solid 5px #e2ded5;
+            border-radius: 10px; /* Rounded corners */
+            outline: none; /* Remove default outline */
+        }
+
+        button {
+            background-color: #090708;
+            border: 2px solid #e2ded5;
+            color: #e2ded5;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px; /* Rounded corners */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="COMMUNIONblack.png" alt="Logo" class="logo" />
+        <div class="input-container">
+            <input type="tel" id="phoneInput" placeholder="enter your phone number" />
+        </div>
+        <button onclick="submitPhoneNumber()">Let's keep in touch</button>
+    </div>
+
+    <script>
+        function submitPhoneNumber() {
+            const phoneNumber = document.getElementById('phoneInput').value;
+            const requestData = {
+                phone_number: phoneNumber
+            };
+            // Log the requestData to verify its structure
+            console.log("Sending:", requestData);
+
+            fetch('https://m3lx9hq9x8.execute-api.us-east-1.amazonaws.com/collectPhoneNumbers', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(() => {
+                // Optionally, show a success message to the user
+                alert('Phone number submitted successfully');
+            })
+            .catch(error => {
+                // Optionally, show an error message to the user
+                alert('An error occurred. Please try again.');
+            });
+        }
+    </script>
+</body>
+</html>
