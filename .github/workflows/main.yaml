@@ -25,4 +25,4 @@ jobs:
 
     - name: Deploy to S3
       run: |
-        aws s3 sync ./communion/ s3://www.communionstudio.com/ --delete || exit 1
+        aws s3 sync ./ s3://www.communionstudio.com/ --delete || exit 1
