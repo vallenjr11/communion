@@ -1,27 +1,4 @@
 name: Deploy Communion to s3
-on:
-  push:
-    branches:
-      - master # Trigger the workflow on push to the master branch
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Setup AWS CLI
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-
-    # Your subsequent steps to deploy to AWS, for example
-    - name: Deploy to S3
-      run: aws s3 sync ./communion/ s3://www.communionstudio.com/ --delete
-name: Deploy Communion to s3
 
 on:
   push:
