@@ -64,12 +64,20 @@
     <script>
         function submitPhoneNumber() {
             const phoneNumber = document.getElementById('phoneInput').value;
+            
+            // Check if the phone number has exactly 10 characters
+            if (!isValidPhoneNumber(phoneNumber)) {
+                alert('Please enter a valid 10-digit phone number');
+                return;
+            }
+    
             const requestData = {
                 phone_number: phoneNumber
             };
+    
             // Log the requestData to verify its structure
             console.log("Sending:", requestData);
-
+    
             fetch('https://m3lx9hq9x8.execute-api.us-east-1.amazonaws.com/collectPhoneNumbers', {
                 method: 'POST',
                 mode: 'cors',
@@ -78,15 +86,26 @@
                 },
                 body: JSON.stringify(requestData)
             })
-            .then(() => {
-                // Optionally, show a success message to the user
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Show a success message to the user
                 alert('Phone number submitted successfully');
             })
             .catch(error => {
-                // Optionally, show an error message to the user
+                // Handle errors
+                console.error('Error:', error);
                 alert('An error occurred. Please try again.');
             });
         }
+    
+        // Function to validate phone number format (checks for exactly 10 characters). Can iterate on this.
+        function isValidPhoneNumber(phoneNumber) {
+            // Check if the phone number has exactly 10 characters
+            return phoneNumber.length === 10;
+        }
     </script>
+    
 </body>
 </html>
